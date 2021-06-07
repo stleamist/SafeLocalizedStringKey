@@ -7,11 +7,15 @@ let package = Package(
     products: [
         .executable(name: "SafeLocalizedStringKey", targets: ["SafeLocalizedStringKey"])
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "0.4.0")
+    ],
     targets: [
         .target(
             name: "SafeLocalizedStringKey",
-            dependencies: []
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser")
+            ]
         ),
         .testTarget(
             name: "SafeLocalizedStringKeyTests",
