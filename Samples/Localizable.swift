@@ -7,7 +7,7 @@ extension LocalizedStringKey {
 	    return "pushed_\(lld1)_commits"
 	}
 	/// Pushed `%lld` commits and pulled `%lld` commits
-	static func pushed_lld_commits_and_pulled_lld_commits(_ lld1: Int64,_ lld2: Int64) -> LocalizedStringKey {
+	static func pushed_lld_commits_and_pulled_lld_commits(_ lld1: Int64, _ lld2: Int64) -> LocalizedStringKey {
 	    return "pushed_\(lld1)_commits_and_pulled_\(lld2)_commits"
 	}
 	/// Pushed no commits
