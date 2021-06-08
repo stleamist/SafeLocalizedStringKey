@@ -15,7 +15,7 @@ struct SafeLocalizedStringKey: ParsableCommand {
             throw RuntimeError("Couldn't read from '\(inputFile)'!")
         }
         
-        let localizations = dictionary.map(Localization.init(key:value:))
+        let localizations = dictionary.sorted(by: { $0 < $1 }).map(Localization.init(key:value:))
         let file = File(functions: localizations.map(Function.init(localization:)))
         
         print(dictionary)
