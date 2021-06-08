@@ -1,43 +1,70 @@
-struct Localization {
+import Swift
+
+struct File {
     
-    var key: String
-    var value: String
+    var functions: [Function]
     
-    var functionDefinition: String {
+    var content: String {
         #"""
+        import SwiftUI
+        
         @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
         extension LocalizedStringKey {
-            /// \#(functionComment)
-            static func \#(functionName)(\#(functionParameters)) -> LocalizedStringKey {
-                return "\#(localizedStringKey)"
-            }
+        \#(
+            functions
+                .map(\.content)
+                .joined(separator: "\n")
+                .split(separator: "\n")
+                .map({ "\t" + $0 })
+                .joined(separator: "\n")
+        )
+        }
+        """#
+    }
+}
+
+struct Function {
+    
+    var localization: Localization
+    
+    var content: String {
+        #"""
+        /// \#(comment)
+        static func \#(name)(\#(parameters)) -> LocalizedStringKey {
+            return "\#(localizedStringKey)"
         }
         """#
     }
     
-    var functionComment: String {
-        return value.replacingOccurrences(of: "%lld", with: "`%lld`")
+    var comment: String {
+        return localization.value.replacingOccurrences(of: "%lld", with: "`%lld`")
     }
     
-    var functionName: String {
-        return key.replacingOccurrences(of: "%lld", with: "lld")
+    var name: String {
+        return localization.key.replacingOccurrences(of: "%lld", with: "lld")
     }
     
-    var functionParameters: String {
-        let count = key.components(separatedBy: "%lld").count - 1
+    var parameters: String {
+        let count = localization.key.components(separatedBy: "%lld").count - 1
         return (1...count).map({ index in "_ lld\(index): Int64" }).joined(separator: ",")
     }
     
     var localizedStringKey: String {
-        var keyString = key
+        var key = localization.key
         var index = 1
         repeat {
-            guard let range = keyString.range(of: "%lld") else {
+            guard let range = key.range(of: "%lld") else {
                 break
             }
-            keyString.replaceSubrange(range, with: #"\(lld\#(index))"#)
+            key.replaceSubrange(range, with: #"\(lld\#(index))"#)
             index += 1
         } while true
-        return keyString
+        return key
     }
+}
+
+struct Localization {
+    
+    var key: String
+    var value: String
 }
