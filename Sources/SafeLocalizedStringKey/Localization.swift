@@ -46,7 +46,7 @@ struct Function {
     
     var parameters: String {
         let count = localization.key.components(separatedBy: "%lld").count - 1
-        return (1...count).map({ index in "_ lld\(index): Int64" }).joined(separator: ",")
+        return (0..<count).map({ index in "_ lld\(index + 1): Int64" }).joined(separator: ",")
     }
     
     var localizedStringKey: String {

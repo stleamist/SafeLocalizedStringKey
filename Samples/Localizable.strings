@@ -1,1 +1,3 @@
+"pushed_no_commits" = "Pushed no commits";
 "pushed_%lld_commits" = "Pushed %lld commits";
+"pushed_%lld_commits_and_pulled_%lld_commits" = "Pushed %lld commits and pulled %lld commits";
