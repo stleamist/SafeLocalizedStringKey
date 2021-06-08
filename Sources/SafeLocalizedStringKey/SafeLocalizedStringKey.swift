@@ -20,7 +20,7 @@ struct SafeLocalizedStringKey: ParsableCommand {
         print(dictionary)
         print(localizations.map(\.functionDefinition))
         
-        let output = localizations.map(\.functionDefinition).joined(separator: "\n\n")
+        let output = localizations.map(\.functionDefinition).joined(separator: "\n\n").appending("\n")
         
         guard let _ = try? output.write(toFile: outputFile, atomically: true, encoding: .utf8) else {
             throw RuntimeError("Couldn't write to '\(outputFile)'!")
