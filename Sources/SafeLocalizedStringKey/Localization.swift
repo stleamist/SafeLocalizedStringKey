@@ -19,6 +19,7 @@ struct File {
                 .joined(separator: "\n")
         )
         }
+        
         """#
     }
 }
